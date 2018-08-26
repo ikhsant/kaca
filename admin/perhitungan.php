@@ -30,22 +30,32 @@ include '../include/header.php';
 					<label>Jumlah Barang Terjual (X2)</label>
 					<input type="number" name="x2" class="form-control" required>
 				</div>
+
+				<div class="form-group">
+					<label>(X3)</label>
+					<input type="number" name="x3" class="form-control" required>
+				</div>
+
 			</div>
 
 			<div class="col-md-6">
 				<div class="form-group">	
 					<label>Konstanta</label>
-					<input type="number" name="konstanta" class="form-control" value="965455776.2" readonly>
+					<input type="number" name="konstanta" class="form-control" value="1125754051" readonly>
 				</div>
 
 				<div class="form-group">	
 					<label>b1</label>
-					<input type="number" name="b1" class="form-control" value="3.879" readonly>
+					<input type="number" name="b1" class="form-control" value="-3.426" readonly>
 				</div>
 
 				<div class="form-group">	
 					<label>b2</label>
-					<input type="number" name="b2" class="form-control" value="248377.662" readonly>
+					<input type="number" name="b2" class="form-control" value="1248692.183" readonly>
+				</div>
+				<div class="form-group">	
+					<label>b3</label>
+					<input type="number" name="b3" class="form-control" value="-207808.825" readonly>
 				</div>
 			</div>
 		</div>
@@ -59,11 +69,13 @@ include '../include/header.php';
 if (isset($_POST['submit'])) {
 	$x1 = $_POST['x1'];
 	$x2 = $_POST['x2'];
+	$x3 = $_POST['x3'];
 	$b1 = $_POST['b1'];
-	$b2 = $_POST['x2'];
+	$b2 = $_POST['b2'];
+	$b3 = $_POST['b3'];
 	$konstanta = $_POST['konstanta'];
 
-	$y = $konstanta + ($b1 * $x1) + ($b2 * $x2);
+	$y = $konstanta + ($b1 * $x1) + ($b2 * $x2) + ($b3 * $x3);
 
 	echo '<div class="alert alert-success"><h3>HASIL Y = '.$y.'</h3></div>';
 	
