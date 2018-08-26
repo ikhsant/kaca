@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2018 at 11:07 AM
+-- Generation Time: Aug 26, 2018 at 01:52 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -19,20 +19,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `peti`
+-- Database: `kaca`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bahan`
+-- Table structure for table `barang`
 --
 
-CREATE TABLE `bahan` (
-  `id_bahan` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `satuan` int(11) NOT NULL
+CREATE TABLE `barang` (
+  `id_barang` int(11) NOT NULL,
+  `kode_barang` varchar(255) NOT NULL,
+  `nama_barang` varchar(255) NOT NULL,
+  `kategori_barang` varchar(255) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `keterangan` text NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `barang`
+--
+
+INSERT INTO `barang` (`id_barang`, `kode_barang`, `nama_barang`, `kategori_barang`, `gambar`, `keterangan`, `jumlah`, `harga`) VALUES
+(1, 'KC005', 'Kaca Dogong', 'kaca dogong', '15s1xlqisfq8ok0.jpg', 'Kaca Kuat Untuk dogong', 20, 20000),
+(2, 'KC002', 'Kaca Elep', 'Kaca Elep', '17p90fi8cr1cko4.jpg', '', 10, 0),
+(3, 'KC003', 'Kaca L300', 'Kaca L300', '97dqyqja78sowgc.jpg', '', 15, 0),
+(4, 'KC004', 'Kaca Angkot', 'Kaca Angkot', '87uaxjzlvoso048.jpg', '', 16, 0);
 
 -- --------------------------------------------------------
 
@@ -44,6 +59,7 @@ CREATE TABLE `costumer` (
   `id_costumer` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `telp` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -51,10 +67,10 @@ CREATE TABLE `costumer` (
 -- Dumping data for table `costumer`
 --
 
-INSERT INTO `costumer` (`id_costumer`, `nama`, `telp`, `alamat`) VALUES
-(1, 'Ikhsan Thohir', '085217965569', 'Jl. Raya Cibolang No. 21'),
-(2, 'Deuis Nurjanah', '08521345668', 'Jl Kebong Kec. Cicurug'),
-(3, 'Riva Lady', '0817456122359', 'Parungkuda Kulon No21');
+INSERT INTO `costumer` (`id_costumer`, `nama`, `telp`, `email`, `alamat`) VALUES
+(8, 'Ikhsan', '08513546548', 'ikhsan@gmail.com', 'asd'),
+(10, 'Ikhsan', '08513546548', 'info@nusaputra.ac.id', 'Cibolang'),
+(11, 'Eizan', '08513546548', 'eizan38@gmail.com', 'asd');
 
 -- --------------------------------------------------------
 
@@ -64,39 +80,19 @@ INSERT INTO `costumer` (`id_costumer`, `nama`, `telp`, `alamat`) VALUES
 
 CREATE TABLE `pesanan` (
   `id_pesanan` int(11) NOT NULL,
-  `jumlah_pesanan` varchar(255) NOT NULL,
   `id_costumer` varchar(255) NOT NULL,
-  `tanggal` date NOT NULL
+  `id_barang` varchar(255) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pesanan`
 --
 
-INSERT INTO `pesanan` (`id_pesanan`, `jumlah_pesanan`, `id_costumer`, `tanggal`) VALUES
-(1, '50', '1', '2018-08-15'),
-(2, '50', '2', '2018-08-09');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `planing`
---
-
-CREATE TABLE `planing` (
-  `id_planing` int(11) NOT NULL,
-  `p1` int(11) NOT NULL,
-  `p2` int(11) NOT NULL,
-  `p3` int(11) NOT NULL,
-  `p4` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `planing`
---
-
-INSERT INTO `planing` (`id_planing`, `p1`, `p2`, `p3`, `p4`) VALUES
-(1, 20, 20, 20, 40);
+INSERT INTO `pesanan` (`id_pesanan`, `id_costumer`, `id_barang`, `jumlah`, `tanggal`) VALUES
+(8, '8', '1', 1, '2018-08-21 12:54:07'),
+(10, '10', '1', 2, '2018-07-01 12:58:29');
 
 -- --------------------------------------------------------
 
@@ -118,28 +114,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `nama_website`, `logo`, `alamat`, `deskripsi`, `theme`) VALUES
-(0, 'Peti Kotak', 'Logo NSP-1 (Custom) (1).png', 'Jl Raya Ciboalang No 21', 'Peti Kotak', 'orange');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stok`
---
-
-CREATE TABLE `stok` (
-  `id_stok` int(11) NOT NULL,
-  `bahan` enum('peti','paku','kayu') NOT NULL,
-  `jumlah` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `stok`
---
-
-INSERT INTO `stok` (`id_stok`, `bahan`, `jumlah`) VALUES
-(2, 'peti', 51),
-(3, 'paku', 2040),
-(4, 'kayu', 20);
+(0, 'Penjualan Kaca', 'Logo NSP-1.png', 'Jl Raya Ciboalang No 21', 'skripsi 2018 @yanti aryani', 'orange');
 
 -- --------------------------------------------------------
 
@@ -162,17 +137,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `telp`, `username`, `password`, `foto`, `akses_level`) VALUES
-(1, 'Ikhsan', '085217965569', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '', 'admin');
+(1, 'Yanti Aryani', '085217965569', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'bek3zb8yb3ksk48.png', 'admin');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `bahan`
+-- Indexes for table `barang`
 --
-ALTER TABLE `bahan`
-  ADD PRIMARY KEY (`id_bahan`);
+ALTER TABLE `barang`
+  ADD PRIMARY KEY (`id_barang`);
 
 --
 -- Indexes for table `costumer`
@@ -187,22 +162,10 @@ ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`id_pesanan`);
 
 --
--- Indexes for table `planing`
---
-ALTER TABLE `planing`
-  ADD PRIMARY KEY (`id_planing`);
-
---
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `stok`
---
-ALTER TABLE `stok`
-  ADD PRIMARY KEY (`id_stok`);
 
 --
 -- Indexes for table `user`
@@ -215,34 +178,22 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `bahan`
+-- AUTO_INCREMENT for table `barang`
 --
-ALTER TABLE `bahan`
-  MODIFY `id_bahan` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `barang`
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `costumer`
 --
 ALTER TABLE `costumer`
-  MODIFY `id_costumer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_costumer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `planing`
---
-ALTER TABLE `planing`
-  MODIFY `id_planing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `stok`
---
-ALTER TABLE `stok`
-  MODIFY `id_stok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user`
