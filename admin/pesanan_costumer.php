@@ -9,7 +9,7 @@ $id_costumer = $_SESSION['id_costumer'];
 
 
 $xcrud->table('pesanan');
-$xcrud->where('id_costumer =',8);
+$xcrud->where('id_costumer =',$id_costumer);
 $xcrud->fields('id_barang,jumlah');
 $xcrud->columns('id_barang,jumlah');
 $xcrud->relation('id_barang','barang','id_barang','nama_barang');
